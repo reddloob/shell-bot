@@ -513,7 +513,8 @@ bot.command("yt", function (msg, reply, next) {
   msg.editor = null;
 
 // command that that should be used
-  var args = "python /1/yt.py ";
+  var url = msg.args(1)[0];
+  var args = "python /1/dl/yt.py "+url;
   msg.context.command = new Command(reply, msg.context, args);
   msg.context.command.on("exit", function() {
     msg.context.command = null;
