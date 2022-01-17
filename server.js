@@ -501,6 +501,25 @@ bot.command("help", function (msg, reply, next) {
   );
 });
 
+// bot command = "yt"
+bot.command("yt", function (msg, reply, next) {
+
+  if (msg.context.command) {
+    var command = msg.context.command;
+    return reply.text("A command is already running.");
+  }
+
+  if (msg.editor) msg.editor.detach();
+  msg.editor = null;
+
+// command that that should be used
+  var args = "python /1/yt.py ";
+  msg.context.command = new Command(reply, msg.context, args);
+  msg.context.command.on("exit", function() {
+    msg.context.command = null;
+  });
+});
+
 // FIXME: add inline bot capabilities!
 // FIXME: possible feature: restrict chats to UIDs
 // FIXME: persistence
