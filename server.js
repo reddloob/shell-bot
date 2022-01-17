@@ -520,6 +520,25 @@ bot.command("yt", function (msg, reply, next) {
   });
 });
 
+// bot command = "rc"
+bot.command("rc", function (msg, reply, next) {
+
+  if (msg.context.command) {
+    var command = msg.context.command;
+    return reply.text("A command is already running.");
+  }
+
+  if (msg.editor) msg.editor.detach();
+  msg.editor = null;
+
+// command that that should be used
+  var args = "rclone copy -v --stats=5s --check-first /1/2 gd1:add";
+  msg.context.command = new Command(reply, msg.context, args);
+  msg.context.command.on("exit", function() {
+    msg.context.command = null;
+  });
+});
+
 // FIXME: add inline bot capabilities!
 // FIXME: possible feature: restrict chats to UIDs
 // FIXME: persistence
