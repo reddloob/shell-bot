@@ -501,7 +501,7 @@ bot.command("help", function (msg, reply, next) {
   );
 });
 
-// bot command = "yt"
+// bot command = "yt" --youtube-dl下载
 bot.command("yt", function (msg, reply, next) {
 
   if (msg.context.command) {
@@ -512,7 +512,7 @@ bot.command("yt", function (msg, reply, next) {
   if (msg.editor) msg.editor.detach();
   msg.editor = null;
 
-// command that that should be used
+// Add the command that should be run in the shell here. My command is again called "process" which is an executable in /usr/local/bin/process
   var url = msg.args(1)[0];
   var args = "python /1/dl/yt.py "+url;
   msg.context.command = new Command(reply, msg.context, args);
@@ -521,7 +521,7 @@ bot.command("yt", function (msg, reply, next) {
   });
 });
 
-// bot command = "rc"
+// bot command = "rc" --rclone copy
 bot.command("rc", function (msg, reply, next) {
 
   if (msg.context.command) {
@@ -532,8 +532,30 @@ bot.command("rc", function (msg, reply, next) {
   if (msg.editor) msg.editor.detach();
   msg.editor = null;
 
-// command that that should be used
-  var args = "rclone copy -v --stats=5s --check-first /1/2 gd1:add";
+// Add the command that should be run in the shell here. My command is again called "process" which is an executable in /usr/local/bin/process
+  var local = msg.args(1)[0];
+  var args = "rclone copy -P --stats=5s --check-first "+local+" gd1:add";
+  msg.context.command = new Command(reply, msg.context, args);
+  msg.context.command.on("exit", function() {
+    msg.context.command = null;
+  });
+});
+
+
+// bot command = "mg" --merge stream file 合成录播文件并上传
+bot.command("mg", function (msg, reply, next) {
+
+  if (msg.context.command) {
+    var command = msg.context.command;
+    return reply.text("A command is already running.");
+  }
+
+  if (msg.editor) msg.editor.detach();
+  msg.editor = null;
+
+// Add the command that should be run in the shell here. My command is again called "process" which is an executable in /usr/local/bin/process
+  var local = msg.args(1)[0];
+  var args = "python /1/dl/mg.py "+local;
   msg.context.command = new Command(reply, msg.context, args);
   msg.context.command.on("exit", function() {
     msg.context.command = null;
