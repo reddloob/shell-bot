@@ -514,15 +514,15 @@ bot.command("yt", function (msg, reply, next) {
 
 // Add the command that should be run in the shell here. My command is again called "process" which is an executable in /usr/local/bin/process
   var url = msg.args(1)[0];
-  var args = "python /1/dl/yt.py "+url;
+  var args = "python /root/yt.py "+url;
   msg.context.command = new Command(reply, msg.context, args);
   msg.context.command.on("exit", function() {
     msg.context.command = null;
   });
 });
 
-// bot command = "rc" --rclone copy
-bot.command("rc", function (msg, reply, next) {
+// bot command = "fc" --fclone copy
+bot.command("fc", function (msg, reply, next) {
 
   if (msg.context.command) {
     var command = msg.context.command;
@@ -534,7 +534,7 @@ bot.command("rc", function (msg, reply, next) {
 
 // Add the command that should be run in the shell here. My command is again called "process" which is an executable in /usr/local/bin/process
   var local = msg.args(1)[0];
-  var args = "rclone copy -P --stats=5s --check-first "+local+" gd1:add";
+  var args = "fclone copy -P --stats=5s --check-first "+local+" gd1:add";
   msg.context.command = new Command(reply, msg.context, args);
   msg.context.command.on("exit", function() {
     msg.context.command = null;
@@ -555,7 +555,7 @@ bot.command("mg", function (msg, reply, next) {
 
 // Add the command that should be run in the shell here. My command is again called "process" which is an executable in /usr/local/bin/process
   var local = msg.args(1)[0];
-  var args = "python /1/dl/mg.py "+local;
+  var args = "python /root/mg.py "+local;
   msg.context.command = new Command(reply, msg.context, args);
   msg.context.command.on("exit", function() {
     msg.context.command = null;
